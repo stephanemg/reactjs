@@ -1,0 +1,10 @@
+.france{ 
+    height: 100px;
+    width: 180px;
+    background:linear-gradient(to right, #002495 0, #002495 33%, #FFF 33%, #FFF 66%, #ed2939 66%, #ed2939 100%); 
+  } 
+  .allemagne{ 
+    height: 100px;
+    width: 180px;
+    background:linear-gradient(to right, #000000 0, #000000 33%, red 33%, red 66%, yellow 66%, yellow 100%); 
+  } 
