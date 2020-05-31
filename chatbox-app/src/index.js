@@ -4,8 +4,22 @@ import './index.css'
 import App from './App'
 import Connexion from './components/Connexion'
 import * as serviceWorker from './serviceWorker'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import NotFound from './components/NotFound'
 
-ReactDOM.render(<Connexion />, document.getElementById('root'))
+//integration de reactJS router sur toute l'application
+// si le chemin est /pseudo/(nom du pseudo) on affiche le component App
+const Root = () => (
+    <BrowserRouter>
+        <Switch>
+            <Route exact path="/" component={Connexion} />
+            <Route exact path="/pseudo/:pseudo" component={App} />
+            <Route  component={NotFound} />
+        </Switch>
+    </BrowserRouter>
+)
+
+ReactDOM.render(<Root />, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
