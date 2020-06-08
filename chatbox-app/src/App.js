@@ -36,26 +36,36 @@ class App extends Component {
   }
 
   //on ajoute un message au state
+  //on gere la limite de 10 messages
   addMessage = message => {
     //developpe les messages actuels pour les copier dans l'objet
     const messages = { ...this.state.messages }
     //on cree une cle timestamp pour stocker le nouveau message
     messages[`message-${Date.now()}`] = message
+    //pour les elements du tableau avant les 10 derniers, on les remplace pour chaque cle par null
+    //la synchro firebase le detectera
+    Object.keys(messages).slice(0, -10).forEach(key => {messages[key] = null})
     //on met a jour le state pour rafraichir l'ecran
     this.setState({ messages })
   }
+
+  //on verifie si le pseudo du message est le meme que celui connecte
+isUser = pseudo => pseudo === this.state.pseudo
+
   //on execute la fonction addMessage dans le formulaire
   //on boucle sur le state en utisant la cle unique des messages
   //on recupere ensuite dans le tableau messages du state le pseudo et le message pour transmettre au
   //composant message
-
-  //la div messages gere le scroll, on lui envoie une propriété ref
+  //pour repositionner le scroll dans la div messages, on lui envoie une propriété ref
+  //on envoie dans la balise message un pointeur sur la fonction isUser
   render() {
     const messages = Object.keys(this.state.messages)
       .map(key => (
         <Message pseudo={this.state.messages[key].pseudo}
           message={this.state.messages[key].message}
-          key={key} />
+          key={key} 
+            isUser = {this.isUser}
+          />
       ))
     console.log(messages)
 
