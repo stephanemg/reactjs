@@ -10,6 +10,7 @@ class Connexion extends React.Component {
   goToApp = event => {
     event.preventDefault()
     this.setState({ goToApp: true })
+    debugger
   }
 
   handleChange = event => {
@@ -19,6 +20,7 @@ class Connexion extends React.Component {
 
   render () {
     if (this.state.goToApp) {
+      debugger
       return <Redirect push to={`/pseudo/${this.state.pseudo}`} />
     }
 

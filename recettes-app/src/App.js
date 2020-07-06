@@ -2,20 +2,34 @@ import React, { Component } from 'react'
 // CSS
 import './App.css'
 
+import Header from './components/Header'
+import Admin from './components/Admin'
+import Card from './components/Card'
+import recettes from './recettes'
+
 class App extends Component {
   state = {
-    pseudo: this.props.match.params.pseudo
+    pseudo: this.props.match.params.pseudo,
+    recettes: {}
   }
+  //charge dans le state de app le fichier recettes, par l'intermédiaire du bouton du composant Admin
+  chargerExemple = () =>
+    this.setState({ recettes })
 
-  render () {
+  render() {
+    //on genere dans cards un tableau de components <Card> rempli avec le sous contenu de chaque recette
+    //on le restitue dans la div cards
+    const cards = Object.keys(this.state.recettes).map(key => <Card key={key} details={this.state.recettes[key]}></Card>)
+    console.log(cards)
+
     return (
       <div className='box'>
-        <h1>Bonjour {this.state.pseudo}</h1>
+        <Header pseudo={this.state.pseudo}></Header>
         <div className='cards'>
-          <div className='card'>
-            <h2>Une Carte</h2>
-          </div>
+          {cards}
         </div>
+        <Admin
+          chargerExemple={this.chargerExemple}></Admin>
       </div>
     )
   }
