@@ -7,11 +7,29 @@ import Admin from './components/Admin'
 import Card from './components/Card'
 import recettes from './recettes'
 
+//firebase
+import base from './base'
+
 class App extends Component {
   state = {
     pseudo: this.props.match.params.pseudo,
     recettes: {}
   }
+
+  //connection a firebase, synchronisation du state
+  //on recupere une reference afin de desynchroniser lorsque l'utilisateur se deconnecte, a l'aide d'une ref
+  componentDidMount() {
+    this.ref = base.syncState(`/${this.state.pseudo}/recettes`, {
+      context: this,
+      state: 'recettes'
+    })
+  }
+
+  //a la deconnection on desynchronise
+  componentWillUnmount() {
+    base.removeBinding(this.ref)
+  }
+
   //charge dans le state de app le fichier recettes, par l'intermédiaire du bouton du composant Admin
   chargerExemple = () =>
     this.setState({ recettes })
