@@ -30,6 +30,14 @@ class App extends Component {
     base.removeBinding(this.ref)
   }
 
+  ajouterRecette = recette => {
+    // on copie le state
+    const recettes = { ... this.state.recettes }
+    //on lui donne une cle unique
+    recettes[`recette-${Date.now()}`] = recette
+    this.setState({ recettes })
+  }
+
   //charge dans le state de app le fichier recettes, par l'intermédiaire du bouton du composant Admin
   chargerExemple = () =>
     this.setState({ recettes })
@@ -47,6 +55,7 @@ class App extends Component {
           {cards}
         </div>
         <Admin
+          ajouterRecette={this.ajouterRecette}
           chargerExemple={this.chargerExemple}></Admin>
       </div>
     )
